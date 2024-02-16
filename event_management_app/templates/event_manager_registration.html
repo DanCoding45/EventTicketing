@@ -1,0 +1,42 @@
+
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+<div class="container">
+    <form method="POST" action="/host/register">
+        {{ form.csrf_token }}
+        <div class="mb-3">
+            {{ form.primary_host.label(class="form-label") }}
+            {{ form.primary_host(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.host_email.label(class="form-label") }}
+            {{ form.host_email(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.organization_name.label(class="form-label") }}
+            {{ form.organization_name(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.organization_address.label(class="form-label") }}
+            {{ form.organization_address(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.organization_email.label(class="form-label") }}
+            {{ form.organization_email(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.confirm_password.label(class="form-label") }}
+            {{ form.confirm_password(class="form-control") }}
+        </div>
+        {{ form.submit() }}
+    </form>
+</div>
+
+{% endblock content %}
