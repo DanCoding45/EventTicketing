@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from .forms import EventManagerRegistrationForm, EventManagerLoginForm
 from .models import EventHost
-from event_manager.views import event_manager
 import sqlite3
 
 event_manager_auth = Blueprint("event_manager_auth", __name__)
@@ -57,7 +56,7 @@ def login():
                 session['organization_email'] = event_host[4]
                 session['logged_in'] = True
                 
-                return redirect(url_for("event_manager.home"))
+                return redirect(url_for("event_manager_auth.home"))
                 
             else:
                 flash("Invalid credentials! please try again!")
@@ -77,3 +76,8 @@ def logout():
     session.pop('logged_in', None)
 
     return redirect(url_for('event_manager_auth.login'))
+
+
+@event_manager_auth.route('/host/home')
+def home():
+    return render_template('event_manager_dashboard.html')
