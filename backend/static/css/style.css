@@ -170,10 +170,11 @@ button:active {
     text-decoration: underline;
   }
   .container{
-    margin-bottom: 300px;
+    margin-bottom: 275px;
+    margin-top: 50px;
   }
   form {
-    margin-top: 150px;
+    margin-top: 50px;
     background-color: lightblue;
     padding: 20px;
     border-radius: 5px;   
