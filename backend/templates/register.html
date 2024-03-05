@@ -4,33 +4,36 @@
 
 {% block content %}
 
+<!-- Add Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="container">
     <h1>Enter your registration information:</h1>
     <form method="POST" action="/register">
         {{ form.csrf_token }}
         <div class="mb-3">
-            {{ form.first_name.label(class="form-label") }}
-            {{ form.first_name(class="form-control") }}
+            <label for="first_name" class="form-label"><i class="fa fa-user"></i> First Name</label>
+            {{ form.first_name(class="form-control", id="first_name") }}
         </div>
         <div class="mb-3">
-            {{ form.last_name.label(class="form-label") }}
-            {{ form.last_name(class="form-control") }}
+            <label for="last_name" class="form-label"><i class="fa fa-user"></i> Last Name</label>
+            {{ form.last_name(class="form-control", id="last_name") }}
         </div>
         <div class="mb-3">
-            {{ form.username.label(class="form-label") }}
-            {{ form.username(class="form-control") }}
+            <label for="username" class="form-label"><i class="fa fa-user"></i> Username</label>
+            {{ form.username(class="form-control", id="username") }}
         </div>
         <div class="mb-3">
-            {{ form.email.label(class="form-label") }}
-            {{ form.email(class="form-control") }}
+            <label for="email" class="form-label"><i class="fa fa-envelope"></i> Email</label>
+            {{ form.email(class="form-control", id="email") }}
         </div>
         <div class="mb-3">
-            {{ form.password.label(class="form-label") }}
-            {{ form.password(class="form-control") }}
+            <label for="password" class="form-label"><i class="fa fa-lock"></i> Password</label>
+            {{ form.password(class="form-control", id="password") }}
         </div>
         <div class="mb-3">
-            {{ form.confirm_password.label(class="form-label") }}
-            {{ form.confirm_password(class="form-control") }}
+            <label for="confirm_password" class="form-label"><i class="fa fa-lock"></i> Confirm Password</label>
+            {{ form.confirm_password(class="form-control", id="confirm_password") }}
         </div>
         {{ form.submit() }}
     </form>
