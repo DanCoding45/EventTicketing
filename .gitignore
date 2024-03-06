@@ -2,6 +2,7 @@
 /dist
 /tmp
 /out-tsc
+/.venv
  .venv 
 # dependencies
 /node_modules
