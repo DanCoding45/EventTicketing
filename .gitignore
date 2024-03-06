@@ -1,0 +1,55 @@
+
+/dist
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+
+venv
+logs
+static
+config_snapshots
+celerybeat.pid
+celerybeat-schedule.db
+*.sock
+*.iml
+*.pyc
+.pytest_cache
+*.db
+*.egg-info/
+*.egg
+*/__pycache__
+
+# PyTest
+.coverage
+htmlcov
+
+# Local Dev Environment Variables
+.env
