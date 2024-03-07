@@ -3,20 +3,24 @@
 
 {% block content %} 
 
+<!-- Add Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="container">
+    <h1>Enter your login information:</h1>
     <form method="POST" action="/host/login">
         {{ form.csrf_token }}
 
         <div class="mb-3">
-            {{ form.organization_email.label(class="form-label") }}
-            {{ form.organization_email(class="form-control") }}
+            <label for="organization_email" class="form-label"><i class="fa fa-envelope"></i> Organization Email</label>
+            {{ form.organization_email(class="form-control", id="organization_email") }}
         </div>
         <div class="mb-3">
-            {{ form.password.label(class="form-label") }}
-            {{ form.password(class="form-control") }}
+            <label for="password" class="form-label"><i class="fa fa-lock"></i> Password</label>
+            {{ form.password(class="form-control", id="password") }}
         </div>
         {{ form.submit() }}
     </form>
 </div>
 
-{%endblock content%}
+{% endblock content %}

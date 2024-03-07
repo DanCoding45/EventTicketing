@@ -3,6 +3,7 @@ body{
     color: #F9FAF8;
     font-family: 'Times New Roman', Times, serif;
     height: 100%;
+    background-color:#d8d6d6 !important;
 }
 
 .header{
@@ -127,13 +128,14 @@ h1{
     font-weight: bold;
 }
 .container5 button{
-    background-color: #3882F6;
+     background-color: #3882F6;
     color: #1F2937;
     padding: 10px;
     width: 150px;
     border: 2px solid white;
     border-radius: 10px;
-    color: white;
+    color: white; 
+    margin-bottom: 10px;
 }
 footer{
     margin-top: 75px;
@@ -167,4 +169,29 @@ button:active {
     color: rgb(88, 241, 247);
     background-color: transparent;
     text-decoration: underline;
+  }
+  .container{
+    margin-bottom: 275px;
+    margin-top: 50px;
+  }
+  form {
+    margin-top: 50px;
+    background-color: lightblue;
+    padding: 20px;
+    border-radius: 5px;   
+  }
+  input[type="text"]{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  input[type="submit"]:hover {
+    background-color: rgb(32, 191, 219);
+  }
+  
+  input[type="submit"]:focus{
+    outline: none;
   }
