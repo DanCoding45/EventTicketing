@@ -31,3 +31,13 @@ CREATE TABLE IF NOT EXISTS messages (
     sent_on DATE
 );
 
+CREATE TABLE IF NOT EXISTS events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    date TEXT,
+    time TEXT,
+    city TEXT,
+    country TEXT,
+    venue_name TEXT
+    );
+    
