@@ -3,9 +3,104 @@
 {% block title %} Home {% endblock title%}
 
 {% block content %}
-
-<div class="container">
-    User Dashboard
+<div class="dash-cont">
+<div class="sidebar">
+    <div class="top">
+        <div class="logo">
+            <i class="bx bxl-codepen"></i>
+            <span>Event Ticketing</span>
+        </div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <div class="user">
+        <img src="{{ url_for('static', filename='images/venue1.jpg') }}" alt="image of a ticket" class="user-img">
+        <div>
+            <p class="bold">E & T</p>
+            <p>User</p>
+        </div>
+    </div>
+    <ul>
+        <li>
+            <a href="#">
+                <i class="bx bxs-grid-alt"></i>
+                <span class="nav-item">Categories</span>
+            </a>
+            <span class="tooltip">Categories</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-football'></i>
+                <span class="nav-item">Sports</span>
+            </a>
+            <span class="tooltip">Sports</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-color'></i>
+                <span class="nav-item">Festivals</span>
+            </a>
+            <span class="tooltip">Festivals</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-music'></i>
+                <span class="nav-item">Concerts</span>
+            </a>
+            <span class="tooltip">Concerts</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-t-shirt'></i>
+                <span class="nav-item">Fashion shows</span>
+            </a>
+            <span class="tooltip">Fashion Shows</span>
+        </li>
+    </ul>
 </div>
 
+<div class="main-content">
+    <div class="container">
+        <h1>User Dashboard</h1><br>
+        <h2>Popular Events:</h2>
+        <div class="container2">
+            <div>
+                <img src="{{ url_for('static', filename='images/venue1.jpg') }}" alt="image of secure payment">
+                <p>
+                    State Farm Arena<br>02/22/24<br>Time: 4;30PM
+                </p>
+                <button>Add to cart</button>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='images/venue2.jpg') }}" alt="image of variety">
+                <p>
+                    State Farm Arena<br>02/22/24<br>Time: 4;30PM
+                </p>
+                <button class="">Add to cart</button>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='images/venue3.jpg') }}" alt="image of easy navigation">
+                <p>
+                    State Farm Arena<br>02/22/24<br>Time: 4;30PM
+                </p>
+                <button class="">Add to cart</button>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='images/venue2.jpg') }}" alt="image of customer support">
+                <p>
+                    State Farm Arena<br>02/22/24<br>Time: 4;30PM
+                </p>
+                <button>Add to cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    let btn = document.querySelector('#btn');
+    let sidebar = document.querySelector('.sidebar');
+
+    btn.onclick = function(){
+       sidebar.classList.toggle('active'); 
+    };
+</script>
 {% endblock content %}
