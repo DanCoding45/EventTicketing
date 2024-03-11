@@ -1,19 +1,51 @@
 from flask import Blueprint, render_template, redirect, request, url_for, session
-from .services import EventGuestServices
+from .services.notification_services import EventGuestNotificationServices
+from .services.event_access_services import EventAccessServices
+from .models import Event
+
 
 event_guest = Blueprint("event_guest", __name__)
-event_guest_services = EventGuestServices()
+
+# service class used to interact with messages table on db.
+event_guest_notification_services = EventGuestNotificationServices()
+# service class used to interact with events table on db.
+event_access_services = EventAccessServices()
+
+
+@event_guest.route('/home')
+def home():
+    fetched_events = event_access_services.get_events()
+    events = []
+    for fetched_event in fetched_events:
+        event = Event(
+        id=fetched_event[0],
+        name=fetched_event[1], 
+        date=fetched_event[2], 
+        time=fetched_event[3], 
+        city=fetched_event[4], 
+        country=fetched_event[5], 
+        venue_name=fetched_event[6]
+    )
+        events.append(event)
+        
+
+    print(events)
+    return render_template("dashboard.html", events=events)
+
 
 @event_guest.route('/notifications')
 def check_notifications():
-    
-    unread_messages = event_guest_services.get_unread_notifications(session["user_id"])
+    # function to check for any incoming messages
+    unread_messages = event_guest_notification_services.get_unread_notifications(
+        session["user_id"])
     return render_template("user_notifications.html", unread_messages=unread_messages)
+
 
 @event_guest.route('/update_message_status', methods=["POST"])
 def update_message_status():
+    # function to toggle message status
     if request.method == "POST":
         message_id = request.form.get('message_id')
-        event_guest_services.update_message_status(message_id)
-        
+        event_guest_notification_services.update_message_status(message_id)
+
     return redirect(url_for("event_guest.check_notifications"))
