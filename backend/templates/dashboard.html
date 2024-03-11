@@ -64,8 +64,8 @@
     <div class="container">
         <h1>My Dashboard</h1><br>
         <h2>Popular Events:</h2>
-        <div class="container2">
-            {% for event in events %}
+        <div class="user-dash-cont">
+            {% for event in events[:4] %}
             <div>
                 <img src="{{ url_for('static', filename='images/venue1.jpg') }}" alt="image of secure payment">
                 <p>
