@@ -13,6 +13,8 @@
         <i class="bx bx-menu" id="btn"></i>
     </div>
     <div class="user">
+
+        
         <img src="{{ url_for('static', filename='images/venue1.jpg') }}" alt="image of a ticket" class="user-img">
         <div>
             <p class="bold">E & T</p>
@@ -60,37 +62,19 @@
 
 <div class="main-content">
     <div class="container">
-        <h1>User Dashboard</h1><br>
+        <h1>My Dashboard</h1><br>
         <h2>Popular Events:</h2>
         <div class="container2">
+            {% for event in events %}
             <div>
                 <img src="{{ url_for('static', filename='images/venue1.jpg') }}" alt="image of secure payment">
                 <p>
-                    State Farm Arena<br>02/22/24<br>Time: 4;30PM
+                    {{event.name}}<br>City: {{ event.city}} <br>Venue: {{ event.venue_name }}<br>{{ event.date }}<br>Time: {{ event.time }}<br>
                 </p>
                 <button>Add to cart</button>
             </div>
-            <div>
-                <img src="{{ url_for('static', filename='images/venue2.jpg') }}" alt="image of variety">
-                <p>
-                    State Farm Arena<br>02/22/24<br>Time: 4;30PM
-                </p>
-                <button class="">Add to cart</button>
-            </div>
-            <div>
-                <img src="{{ url_for('static', filename='images/venue3.jpg') }}" alt="image of easy navigation">
-                <p>
-                    State Farm Arena<br>02/22/24<br>Time: 4;30PM
-                </p>
-                <button class="">Add to cart</button>
-            </div>
-            <div>
-                <img src="{{ url_for('static', filename='images/venue2.jpg') }}" alt="image of customer support">
-                <p>
-                    State Farm Arena<br>02/22/24<br>Time: 4;30PM
-                </p>
-                <button>Add to cart</button>
-            </div>
+            {% endfor %}
+ 
         </div>
     </div>
 </div>
