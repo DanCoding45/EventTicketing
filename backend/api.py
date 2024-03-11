@@ -20,22 +20,22 @@ class SimplifiedEvent:
 
 
 #
-def _old_simplify_event_data(event):
+# def _old_simplify_event_data(event):
 
-    simplified_event_dict = {
-        "name": event["name"],
-        "url": event["url"],
-        "date": event["dates"]["start"]["localDate"],
-        "time": event["dates"]["start"]["localTime"],
-        "venue": {
-            "name": event["_embedded"]["venues"][0]["name"],
-            "city": event["_embedded"]["venues"][0]["city"]["name"],
-            "state": event["_embedded"]["venues"][0]["state"]["name"],
-            "country": event["_embedded"]["venues"][0]["country"]["name"],
-        },
-        "image_url": event["images"][0]["url"] if event["images"] else None,
-    }
-    return simplified_event_dict
+#     simplified_event_dict = {
+#         "name": event["name"],
+#         "url": event["url"],
+#         "date": event["dates"]["start"]["localDate"],
+#         "time": event["dates"]["start"]["localTime"],
+#         "venue": {
+#             "name": event["_embedded"]["venues"][0]["name"],
+#             "city": event["_embedded"]["venues"][0]["city"]["name"],
+#             "state": event["_embedded"]["venues"][0]["state"]["name"],
+#             "country": event["_embedded"]["venues"][0]["country"]["name"],
+#         },
+#         "image_url": event["images"][0]["url"] if event["images"] else None,
+#     }
+#     return simplified_event_dict
 
 
 def simplify_event_data(event) -> SimplifiedEvent:
