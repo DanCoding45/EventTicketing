@@ -57,7 +57,7 @@ def login():
                 session['logged_in'] = True
 
                 conn.close()
-                return redirect(url_for('auth.home'))
+                return redirect(url_for('event_guest.home'))
             else:
                 flash("Invalid Credentials! Please try again!")
             
@@ -74,6 +74,3 @@ def logout():
 
     return redirect(url_for('auth.login'))
 
-@auth.route('/home')
-def home():
-    return render_template("dashboard.html")
