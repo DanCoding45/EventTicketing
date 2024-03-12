@@ -12,24 +12,34 @@ event_guest_notification_services = EventGuestNotificationServices()
 event_access_services = EventAccessServices()
 
 
-@event_guest.route('/home')
-def home():
-    fetched_events = event_access_services.get_events()
+@event_guest.route('/home/<string:category>')
+@event_guest.route('/home', defaults={"category": None})
+def home(category):
+    
+    if category:
+        print(category)
+        fetched_events = event_access_services.get_events(category.capitalize())
+    else:
+        fetched_events = event_access_services.get_events()
+    
     events = []
     for fetched_event in fetched_events:
         event = Event(
         id=fetched_event[0],
-        name=fetched_event[1], 
-        date=fetched_event[2], 
-        time=fetched_event[3], 
-        city=fetched_event[4], 
-        country=fetched_event[5], 
-        venue_name=fetched_event[6]
+        name=fetched_event[1],
+        category=fetched_event[2], 
+        date=fetched_event[3], 
+        time=fetched_event[4], 
+        city=fetched_event[5], 
+        state=fetched_event[6],
+        country=fetched_event[7], 
+        venue_name=fetched_event[8],
+        image_url=fetched_event[9]
     )
         events.append(event)
-        
-
+    
     print(events)
+    
     return render_template("dashboard.html", events=events)
 
 
