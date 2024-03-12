@@ -1,90 +1,96 @@
-{% extends 'index.html' %}
-
-{% block title %} Home {% endblock title%}
-
-{% block content %}
+{% extends 'index.html' %} {% block title %} Home {% endblock title%} {% block
+content %}
 <div class="dash-cont">
-<div class="sidebar">
+  <div class="sidebar">
     <div class="top">
-        <div class="logo">
-            <i class="bx bxl-codepen"></i>
-            <span>Event Ticketing</span>
-        </div>
-        <i class="bx bx-menu" id="btn"></i>
+      <div class="logo">
+        <i class="bx bxl-codepen"></i>
+        <span>Event Ticketing</span>
+      </div>
+      <i class="bx bx-menu" id="btn"></i>
     </div>
     <div class="user">
-
-        
-        <img src="{{ url_for('static', filename='images/venue1.jpg') }}" alt="image of a ticket" class="user-img">
-        <div>
-            <p class="bold">E & T</p>
-            <p>User</p>
-        </div>
+      <img
+        src="{{ url_for('static', filename='images/venue1.jpg') }}"
+        alt="image of a ticket"
+        class="user-img"
+      />
+      <div>
+        <p class="bold">E & T</p>
+        <p>User</p>
+      </div>
     </div>
     <ul>
-        <li>
-            <a href="#">
-                <i class="bx bxs-grid-alt"></i>
-                <span class="nav-item">Categories</span>
-            </a>
-            <span class="tooltip">Categories</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class='bx bx-football'></i>
-                <span class="nav-item">Sports</span>
-            </a>
-            <span class="tooltip">Sports</span>
-        </li>
-        <li>
+      <li>
+        <a href="/home">
+          <i class="bx bxs-grid-alt"></i>
+          <span class="nav-item">Categories</span>
+        </a>
+        <span class="tooltip">Categories</span>
+      </li>
+      <li>
+        <a href="/home/sports">
+          <i class="bx bx-football"></i>
+          <span class="nav-item">Sports</span>
+        </a>
+        <span class="tooltip">Sports</span>
+      </li>
+      <!-- 
+        Ticketmaster does not have data for festivals, 
+        we will see if we can find relevant events. 
+        We do have plenty of events so we should be fine 
+       -->
+      <!-- <li>
             <a href="#">
                 <i class='bx bxs-color'></i>
                 <span class="nav-item">Festivals</span>
             </a>
             <span class="tooltip">Festivals</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class='bx bxs-music'></i>
-                <span class="nav-item">Concerts</span>
-            </a>
-            <span class="tooltip">Concerts</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class='bx bxs-t-shirt'></i>
-                <span class="nav-item">Fashion shows</span>
-            </a>
-            <span class="tooltip">Fashion Shows</span>
-        </li>
+        </li> -->
+      <li>
+        <a href="/home/music">
+          <i class="bx bxs-music"></i>
+          <span class="nav-item">Concerts</span>
+        </a>
+        <span class="tooltip">Concerts</span>
+      </li>
+      <li>
+        <a href="/home/fashion">
+          <i class="bx bxs-t-shirt"></i>
+          <span class="nav-item">Fashion shows</span>
+        </a>
+        <span class="tooltip">Fashion Shows</span>
+      </li>
     </ul>
-</div>
+  </div>
 
-<div class="main-content">
+  <div class="main-content">
     <div class="container">
-        <h1>My Dashboard</h1><br>
-        <h2>Popular Events:</h2>
-        <div class="user-dash-cont">
-            {% for event in events[:4] %}
-            <div>
-                <img src="{{ url_for('static', filename='images/venue1.jpg') }}" alt="image of secure payment">
-                <p>
-                    {{event.name}}<br>City: {{ event.city}} <br>Venue: {{ event.venue_name }}<br>{{ event.date }}<br>Time: {{ event.time }}<br>
-                </p>
-                <button>Add to cart</button>
-            </div>
-            {% endfor %}
- 
+      <h1>My Dashboard</h1>
+      <br />
+      <h2>Popular Events:</h2>
+      <div class="user-dash-cont">
+        {% for event in events[:4] %}
+        <div>
+          <img src="{{ event.image_url }}" alt="image of event" />
+          <p>
+            {{event.name}}<br />{{ event.city }}, {{ event.state }} <br />Venue:
+            {{ event.venue_name }}<br />{{ event.date }}<br />Time: {{
+            event.time }}<br />
+          </p>
+          <button>Add to cart</button>
         </div>
+        {% endfor %}
+      </div>
     </div>
-</div>
+  </div>
 </div>
 <script>
-    let btn = document.querySelector('#btn');
-    let sidebar = document.querySelector('.sidebar');
+  let btn = document.querySelector("#btn");
+  let sidebar = document.querySelector(".sidebar");
 
-    btn.onclick = function(){
-       sidebar.classList.toggle('active'); 
-    };
+  btn.onclick = function () {
+    sidebar.classList.toggle("active");
+  };
 </script>
 {% endblock content %}
