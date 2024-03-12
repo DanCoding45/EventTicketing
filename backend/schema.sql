@@ -34,10 +34,13 @@ CREATE TABLE IF NOT EXISTS messages (
 CREATE TABLE IF NOT EXISTS events (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
+    category TEXT,
     date TEXT,
     time TEXT,
     city TEXT,
+    state TEXT,
     country TEXT,
-    venue_name TEXT
+    venue_name TEXT,
+    image_url TEXT
     );
     
