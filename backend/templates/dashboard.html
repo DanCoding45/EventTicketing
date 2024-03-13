@@ -1,7 +1,7 @@
 {% extends 'index.html' %} {% block title %} Home {% endblock title%} {% block
 content %}
 <div class="dash-cont">
-  <div class="sidebar">
+  <div class="sidebar" id="sidebar">
     <div class="top">
       <div class="logo">
         <i class="bx bxl-codepen"></i>
@@ -21,13 +21,6 @@ content %}
       </div>
     </div>
     <ul>
-      <li>
-        <a href="/home">
-          <i class="bx bxs-grid-alt"></i>
-          <span class="nav-item">Categories</span>
-        </a>
-        <span class="tooltip">Categories</span>
-      </li>
       <li>
         <a href="/home/sports">
           <i class="bx bx-football"></i>
@@ -69,8 +62,63 @@ content %}
       <h1>My Dashboard</h1>
       <br />
       <h2>Popular Events:</h2>
-      <div class="user-dash-cont">
-        {% for event in events[:4] %}
+      <div
+        class="user-dash-cont"
+        style="background-color: #1f2937; color: white"
+      >
+        {% for event in events[:3] %}
+        <div>
+          <img src="{{ event.image_url }}" alt="image of event" />
+          <p>
+            {{event.name}}<br />{{ event.city }}, {{ event.state }} <br />Venue:
+            {{ event.venue_name }}<br />{{ event.date }}<br />Time: {{
+            event.time }}<br />
+          </p>
+          <button>Add to cart</button>
+        </div>
+        {% endfor %}
+      </div>
+      <div>
+        <br />
+        <h2>Featured Event:</h2>
+        <div class="container1">
+          <div class="body-text">
+            Join Us For Our <br />
+            Featured Event!<br /><br />
+            <p>
+              Discover a world of excitement with our diverse range of featured
+              events! Get ready to groove to the beats of top DJs at our
+              electrifying dance parties, challenge yourself with our
+              adrenaline-pumping sports tournaments, tantalize your taste buds
+              at our gourmet food festivals, or create unforgettable memories
+              with your loved ones at our family-friendly carnivals. With an
+              array of entertainment options spanning music, sports, food, and
+              family fun, there's never a dull moment at our events. Mark your
+              calendars and join us for the ultimate experience!"
+            </p>
+          </div>
+          <div class="user-dash-cont" style="color: white">
+            {% for event in events[:1] %}
+            <div>
+              <img src="{{ event.image_url }}" alt="image of event" />
+              <p>
+                {{event.name}}<br />{{ event.city }}, {{ event.state }}
+                <br />Venue: {{ event.venue_name }}<br />{{ event.date }}<br />Time:
+                {{ event.time }}<br />
+              </p>
+              <button>Add to cart</button>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <br />
+      <h2>Other Awesome Events:</h2>
+      <div
+        class="user-dash-cont"
+        style="background-color: #1f2937; color: white"
+      >
+        {% for event in events[:9] %}
         <div>
           <img src="{{ event.image_url }}" alt="image of event" />
           <p>
@@ -92,5 +140,16 @@ content %}
   btn.onclick = function () {
     sidebar.classList.toggle("active");
   };
+
+  window.addEventListener("scroll", function () {
+    var sidebar = document.getElementById("sidebar");
+    var topOffset = 50; // Adjust this value as needed
+
+    if (window.scrollY > topOffset) {
+      sidebar.classList.add("fixed");
+    } else {
+      sidebar.classList.remove("fixed");
+    }
+  });
 </script>
 {% endblock content %}
