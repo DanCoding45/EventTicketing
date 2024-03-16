@@ -4,6 +4,7 @@ from auth.user.views import auth
 from auth.event_manager.views import event_manager_auth
 from event_manager.views import event_manager
 from event_guest.views import event_guest
+from shopping_cart.views import shopping_cart
 
 
 app = Flask(__name__)
@@ -12,6 +13,7 @@ app.register_blueprint(auth)
 app.register_blueprint(event_manager_auth)
 app.register_blueprint(event_manager)
 app.register_blueprint(event_guest)
+app.register_blueprint(shopping_cart)
 
 init_db()
 
