@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, request, url_for, sessio
 from .services.notification_services import EventGuestNotificationServices
 from .services.event_access_services import EventAccessServices
 from .models import Event
-
+from shopping_cart.forms import AddToCartForm
 
 event_guest = Blueprint("event_guest", __name__)
 
@@ -15,9 +15,9 @@ event_access_services = EventAccessServices()
 @event_guest.route('/home/<string:category>')
 @event_guest.route('/home', defaults={"category": None})
 def home(category):
+    add_to_cart_form = AddToCartForm()
     
     if category:
-        print(category)
         fetched_events = event_access_services.get_events(category.capitalize())
     else:
         fetched_events = event_access_services.get_events()
@@ -37,10 +37,8 @@ def home(category):
         image_url=fetched_event[9]
     )
         events.append(event)
-    
-    print(events)
-    
-    return render_template("dashboard.html", events=events)
+        
+    return render_template("dashboard.html", events=events, form=add_to_cart_form)
 
 
 @event_guest.route('/notifications')
