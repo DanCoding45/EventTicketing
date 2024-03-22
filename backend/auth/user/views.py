@@ -71,6 +71,7 @@ def logout():
     session.pop('user_id', None)
     session.pop('username', None)
     session.pop('logged_in', None)
+    session.pop('shopping_cart', None)
 
     return redirect(url_for('auth.login'))
 
