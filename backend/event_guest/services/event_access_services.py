@@ -8,7 +8,6 @@ class EventAccessServices:
         cursor = conn.cursor()
         
         if category:
-            print(category)
             query = "SELECT * FROM events WHERE category = ?"
             cursor.execute(query, (category, ))
         else:
@@ -16,7 +15,6 @@ class EventAccessServices:
             cursor.execute(query)
         
         events = cursor.fetchall()
-        print(events)        
         conn.close()
         return events
         
