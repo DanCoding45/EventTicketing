@@ -56,7 +56,7 @@ def login():
                 session['organization_email'] = event_host[4]
                 session['logged_in'] = True
                 
-                return redirect(url_for("event_manager_auth.home"))
+                return redirect(url_for("event_manager.home"))
                 
             else:
                 flash("Invalid credentials! please try again!")
@@ -77,7 +77,3 @@ def logout():
 
     return redirect(url_for('event_manager_auth.login'))
 
-
-@event_manager_auth.route('/host/home')
-def home():
-    return render_template('event_manager_dashboard.html')
