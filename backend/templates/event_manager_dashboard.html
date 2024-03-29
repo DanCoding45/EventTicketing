@@ -20,35 +20,25 @@
         <p>User</p>
       </div>
     </div>
+    
     <ul>
       <li>
-        <a href="#">
+        <a href="/manager/home/sports">
           <i class="bx bx-football"></i>
           <span class="nav-item">Sports</span>
         </a>
         <span class="tooltip">Sports</span>
       </li>
-      <!-- 
-            Ticketmaster does not have data for festivals, 
-            we will see if we can find relevant events. 
-            We do have plenty of events so we should be fine 
-           -->
-      <!-- <li>
-                <a href="#">
-                    <i class='bx bxs-color'></i>
-                    <span class="nav-item">Festivals</span>
-                </a>
-                <span class="tooltip">Festivals</span>
-            </li> -->
+
       <li>
-        <a href="#">
+        <a href="/manager/home/music">
           <i class="bx bxs-music"></i>
           <span class="nav-item">Concerts</span>
         </a>
         <span class="tooltip">Concerts</span>
       </li>
       <li>
-        <a href="#">
+        <a href="/manager/home/fashion">
           <i class="bx bxs-t-shirt"></i>
           <span class="nav-item">Fashion shows</span>
         </a>
@@ -56,77 +46,19 @@
       </li>
     </ul>
   </div>
-  {% for user in users %}
+{% for event in events %}
   <div class="card m-auto" style="width: 36rem">
     <div class="card-body">
-      <h5 class="card-title">{{ user[1] }} {{ user[2] }}</h5>
-      <p class="card-text">{{ user[3] }}</p>
-      <p class="card-text">{{ user[4] }}</p>
-      <a
-        href="#"
-        class="btn text-bg-dark send-message-btn"
-        data-bs-toggle="modal"
-        data-bs-target="#sendMessageModal{{ user[3] }}"
-        >Send message</a
-      >
-    </div>
-    <div class="modal" id="sendMessageModal{{ user[3] }}" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              Send Message to {{ user[1] }} {{ user[2] }}
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <form action="/manager/send_message" method="post">
-            <div class="modal-body">
-              <div class="mb-3">
-                <label for="title" class="form-label">Title:</label> <br />
-                <input
-                  class="form-control"
-                  type="text"
-                  name="title"
-                  id="message-title"
-                />
-                <br />
-                <label for="message" class="form-label">Message:</label>
-                <textarea
-                  class="form-control"
-                  name="message"
-                  id="message-content"
-                  rows="3"
-                ></textarea>
-                <input type="hidden" name="user_id" value="{{ user[0] }}" />
-                <input type="hidden" name="first_name" value="{{ user[1] }}" />
-                <input type="hidden" name="last_name" value="{{ user[2] }}" />
-                <input type="hidden" name="username" value="{{ user[3] }}" />
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <input type="submit" class="btn btn-primary" value="Send" />
-            </div>
-          </form>
-        </div>
-      </div>
+      <h5 class="card-title">{{ event[1] }} {{ event[2] }}</h5>
+      <p class="card-text">{{ event[3] }}</p>
+      <p class="card-text">{{ event[4] }}</p>
+      <a href="{{ url_for('event_manager.guest_list', event_id=event[0]) }}" class="btn text-bg-dark">See Guest List</a>
     </div>
   </div>
   <br /><br />
-
-  {% endfor %}
+{% endfor %}
 </div>
+
 <script>
   let btn = document.querySelector("#btn");
   let sidebar = document.querySelector(".sidebar");
