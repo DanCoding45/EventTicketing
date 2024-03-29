@@ -43,9 +43,9 @@ def home(category):
 
 @event_guest.route('/notifications')
 def check_notifications():
+    print(session['user_id'])
     # function to check for any incoming messages
-    unread_messages = event_guest_notification_services.get_unread_notifications(
-        session["user_id"])
+    unread_messages = event_guest_notification_services.get_unread_notifications(session["user_id"])
     return render_template("user_notifications.html", unread_messages=unread_messages)
 
 
