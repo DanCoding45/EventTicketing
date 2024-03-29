@@ -3,14 +3,30 @@ from .services import EventManagerServices
 from .models import Message
 
 event_manager = Blueprint("event_manager", __name__)
+
 event_manager_services = EventManagerServices()
 
 
-@event_manager.route('/manager/home')
-def home():
-    users = event_manager_services.fetch_users()
-    return render_template('event_manager_dashboard.html', users=users)
+@event_manager.route('/manager/home/<string:category>')
+@event_manager.route('/manager/home', defaults={"category": None})
+def home(category):
+    events = []
+    if category:
+        events=event_manager_services.fetch_events(category.capitalize())
+    else:
+        events=event_manager_services.fetch_events()
     
+    return render_template('event_manager_dashboard.html', events=events)
+
+@event_manager.route('/manager/guest_list/<string:event_id>')
+def guest_list(event_id):
+    event_guests = event_manager_services.fetch_guest_list(event_id)
+    if event_guests:  # Check if event_guests is not empty
+        print(event_guests)
+        return render_template('event_guest_list.html', event_id=event_id, event_guests=event_guests)
+    else:
+        return render_template('event_guest_list.html', event_id=event_id)
+
 @event_manager.route('/manager/send_message', methods=["GET", "POST"])
 def send_message():
     
