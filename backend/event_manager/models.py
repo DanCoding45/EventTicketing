@@ -11,3 +11,12 @@ class Message:
         self.content = content
         self.sent_on = date.today()
         self.message_status = "Unread"
+        
+class EventGuest:
+    def __init__(self, event_id, guest_id, first_name, last_name, username, email):
+        self.event_id = event_id
+        self.guest_id = guest_id
+        self.first_name = first_name
+        self.last_name = last_name
+        self.username = username
+        self.email = email
