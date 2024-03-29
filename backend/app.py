@@ -15,8 +15,6 @@ app.register_blueprint(event_manager)
 app.register_blueprint(event_guest)
 app.register_blueprint(shopping_cart)
 
-init_db()
-
 
 if __name__ == "__main__":
     app.run(debug=True)
