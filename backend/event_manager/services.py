@@ -1,22 +1,47 @@
 
 import sqlite3
+from .models import EventGuest
 
 class EventManagerServices:
     
-    def fetch_users(self):
+    def fetch_events(self, category=None):
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
 
-        cursor.execute("SELECT id, first_name, last_name, username, email FROM users")
+        if category:
+            query = "SELECT * FROM events WHERE category = ?"
+            cursor.execute(query, (category, ))
+        else:
+            query = "SELECT * FROM events LIMIT 10"
+            cursor.execute(query)
 
-        event_attendees = cursor.fetchall()
+        events = cursor.fetchall()
 
         conn.close()
-        if event_attendees:
-            return event_attendees
+        if events:
+            return events
         else:
-            return "No attendees found."
-    
+            return "No events found."
+    def fetch_guest_list(self, event_id):
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+
+        query = "SELECT sold_tickets.guest_id, users.first_name, users.last_name, users.username, users.email FROM sold_tickets JOIN users ON sold_tickets.guest_id = users.id WHERE sold_tickets.event_id = ?"
+        cursor.execute(query, (event_id, ))
+
+        event_guests = cursor.fetchall()
+
+        conn.close()
+        if event_guests:
+            event_guest_objects = []
+            for guest_data in event_guests:
+                guest_id, first_name, last_name, username, email = guest_data
+                event_guest_object = EventGuest(event_id, guest_id, first_name, last_name, username, email)
+                event_guest_objects.append(event_guest_object)
+            
+            return event_guest_objects
+        else:
+            return []   
     
     def send_message(self, message):
         conn = sqlite3.connect('database.db')
