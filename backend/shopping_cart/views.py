@@ -99,5 +99,11 @@ def clear_cart():
 
     return render_template('cart.html')
 
+@shopping_cart.route('/cart/checkout', methods=["GET", "POST"])
+def checkout():
+    if not session["logged_in"]:
+        flash('You need to login to view your cart', category='danger')
+        return redirect(url_for('auth.login'))
+    return render_template('checkout.html')
 
 

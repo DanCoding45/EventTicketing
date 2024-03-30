@@ -1,6 +1,6 @@
 {% extends 'index.html' %} {% block content %}
 
-<div class="container p-5">
+<div class="manager_dash">
   <div class="sidebar" id="sidebar">
     <div class="top">
       <div class="logo">
@@ -20,7 +20,7 @@
         <p>User</p>
       </div>
     </div>
-    
+
     <ul>
       <li>
         <a href="/manager/home/sports">
@@ -46,17 +46,24 @@
       </li>
     </ul>
   </div>
-{% for event in events %}
-  <div class="card m-auto" style="width: 36rem">
-    <div class="card-body">
-      <h5 class="card-title">{{ event[1] }} {{ event[2] }}</h5>
-      <p class="card-text">{{ event[3] }}</p>
-      <p class="card-text">{{ event[4] }}</p>
-      <a href="{{ url_for('event_manager.guest_list', event_id=event[0]) }}" class="btn text-bg-dark">See Guest List</a>
+  <div class="manager_main">
+    {% for event in events %}
+    <div class="card m-auto" style="width: 36rem">
+      <div class="card-body">
+        <img src="{{ event.image_url }}" alt="image of event" />
+        <h5 class="card-title">{{ event[1] }} {{ event[2] }}</h5>
+        <p class="card-text">{{ event[3] }}</p>
+        <p class="card-text">{{ event[4] }}</p>
+        <a
+          href="{{ url_for('event_manager.guest_list', event_id=event[0]) }}"
+          class="btn text-bg-dark"
+          >See Guest List</a
+        >
+      </div>
     </div>
+    <br /><br />
+    {% endfor %}
   </div>
-  <br /><br />
-{% endfor %}
 </div>
 
 <script>

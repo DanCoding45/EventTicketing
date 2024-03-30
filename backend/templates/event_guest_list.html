@@ -1,9 +1,5 @@
-{% extends 'index.html' %} 
-{% block content %}
-<div class="container">
-
-  
-    
+{% extends 'index.html' %} {% block content %}
+<div class="guest_list_cont">
   {% for guest in event_guests %}
   <div class="card">
     <h5 class="card-header">
@@ -12,35 +8,80 @@
     <div class="card-body">
       <h5 class="card-title">Username: {{ guest.username }}</h5>
       <p class="card-text">Email: {{ guest.email }}</p>
-      <a href="#" class="btn text-bg-dark" data-bs-toggle="modal" data-bs-target="#sendMessageModal{{ guest.id }}">Send Message</a>
+      <a
+        href="#"
+        class="btn text-bg-dark"
+        data-bs-toggle="modal"
+        data-bs-target="#sendMessageModal{{ guest.id }}"
+        >Send Message</a
+      >
     </div>
   </div>
   <br />
-  
+
   <!-- Modal for sending message to the guest -->
   <div class="modal" id="sendMessageModal{{ guest.id }}" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Send Message to {{ guest.first_name }} {{ guest.last_name }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title">
+            Send Message to {{ guest.first_name }} {{ guest.last_name }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <form action="/manager/send_message" method="post">
           <div class="modal-body">
             <div class="mb-3">
               <label for="title" class="form-label">Title:</label><br />
-              <input class="form-control" type="text" name="title" id="message-title" />
+              <input
+                class="form-control"
+                type="text"
+                name="title"
+                id="message-title"
+              />
               <br />
               <label for="message" class="form-label">Message:</label>
-              <textarea class="form-control" name="message" id="message-content" rows="3"></textarea>
-              <input type="hidden" name="user_id" value="{{ guest.guest_id }}" />
-              <input type="hidden" name="first_name" value="{{ guest.first_name }}" />
-              <input type="hidden" name="last_name" value="{{ guest.last_name }}" />
-              <input type="hidden" name="username" value="{{ guest.username }}" />
+              <textarea
+                class="form-control"
+                name="message"
+                id="message-content"
+                rows="3"
+              ></textarea>
+              <input
+                type="hidden"
+                name="user_id"
+                value="{{ guest.guest_id }}"
+              />
+              <input
+                type="hidden"
+                name="first_name"
+                value="{{ guest.first_name }}"
+              />
+              <input
+                type="hidden"
+                name="last_name"
+                value="{{ guest.last_name }}"
+              />
+              <input
+                type="hidden"
+                name="username"
+                value="{{ guest.username }}"
+              />
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
             <input type="submit" class="btn btn-primary" value="Send" />
           </div>
         </form>
