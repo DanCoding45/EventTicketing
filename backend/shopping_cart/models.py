@@ -1,8 +1,7 @@
-
 import sqlite3
 
 
-class Ticket():
+class Ticket:
 
     def __init__(self, event_id, price, quantity):
         self.event_id = event_id
