@@ -136,18 +136,25 @@ def render_checkout():
 
 @shopping_cart.route("/cart/process_payment", methods=["POST"])
 def process_payment():
+
     if request.method == "GET":
         if not session["logged_in"]:
             flash("You need to login to view your cart", category="danger")
             return redirect(url_for("auth.login"))
-    verify_payment()
+
+    data = request.json
+    card_number = data.get("cardNumber")
+    card_name = data.get("cardName")
+    expiry = data.get("expiry")
+    cvv = data.get("cvv")
+    verify_payment_details(card_number, card_name, expiry, cvv)
 
     # Below is commented because every time we submit the payment, we are inserting 1 into the sold_tickets table each time as placeholder
     # insert_into_db(event_id=1, user_id=1)
     return jsonify({"message": "Payment processed successfully"}), 200
 
 
-def verify_payment():
+def verify_payment_details(card_num, name, expiry, cvv):
     return NotImplemented
 
 
