@@ -27,10 +27,8 @@ def cart():
 
 @shopping_cart.route("/add_to_cart", methods=["GET", "POST"])
 def add_to_cart():
-
     form = AddToCartForm()
     if request.method == "POST":
-
         if not session.get("logged_in"):
             flash("You need to login to add items to your cart", category="danger")
             return redirect(url_for("auth.login"))
@@ -48,7 +46,7 @@ def add_to_cart():
         date = request.form.get("date")
         ticket_price = float(request.form.get("price"))
         ticket_quantity = int(form.quantity.data)
-        print(ticket_quantity)
+
         # Check if the ticket is already in the shopping cart
         if event_id in session["shopping_cart"]["items"]:
             flash("Item already in cart", category="danger")
@@ -69,6 +67,8 @@ def add_to_cart():
         session["shopping_cart"]["total_price"] += ticket_price * ticket_quantity
 
         flash("Item added to cart", category="success")
+
+        session["event_id"] = event_id
 
         return redirect(url_for("event_guest.home"))
 
@@ -149,22 +149,44 @@ def process_payment():
     cvv = data.get("cvv")
     verify_payment_details(card_number, card_name, expiry, cvv)
 
-    # Below is commented because every time we submit the payment, we are inserting 1 into the sold_tickets table each time as placeholder
-    # insert_into_db(event_id=1, user_id=1)
+    user_id = session["user_id"]
+    event_id = session["event_id"]
+    guest_name = get_name(user_id)
+    insert_into_db(event_id=event_id, user_id=user_id, name=guest_name)
     return jsonify({"message": "Payment processed successfully"}), 200
+
+
+def get_name(guest_id):
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+    user_id = guest_id
+
+    cursor.execute("SELECT first_name, last_name FROM users WHERE id = ?", (user_id,))
+    user_data = cursor.fetchone()
+
+    if user_data:
+        first_name, last_name = user_data
+        full_name = f"{first_name} {last_name}"  # Concatenate first and last name
+        cursor.close()
+        conn.close()
+        return full_name
+    else:
+        cursor.close()
+        conn.close()
+        raise ValueError("User not found")
 
 
 def verify_payment_details(card_num, name, expiry, cvv):
     return NotImplemented
 
 
-# TEST FUNC
-def insert_into_db(event_id, user_id):
+def insert_into_db(event_id, user_id, name):
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
+    print(name)
     cursor.execute(
-        "INSERT INTO sold_tickets (guest_id, event_id) VALUES (?, ?)",
-        (user_id, event_id),
+        "INSERT INTO sold_tickets (guest_id, event_id, guest_name) VALUES (?, ?, ?)",
+        (user_id, event_id, name),
     )
 
     conn.commit()
