@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Events & Tickets Incorporated</title>
+    {% block title %}<title>Events & Tickets Incorporated</title> {% endblock title %} 
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
@@ -49,9 +49,13 @@
         </ul>
       </nav>
     </header>
+    <!-- needs some styling to get the text to be in the center -->
     {% for message in get_flashed_messages() %}
-    <div class="alert">{{ message }}</div>
-    {% endfor %} {% block content %}
+    <div class="alert alert-dismissible fade show alert-info" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}{% block content %}
 
     <div class="container1">
       <div class="body-text">
