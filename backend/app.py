@@ -6,7 +6,6 @@ from event_manager.views import event_manager
 from event_guest.views import event_guest
 from shopping_cart.views import shopping_cart
 
-
 app = Flask(__name__)
 app.secret_key = "your_secret_key_here"
 app.register_blueprint(auth)
