@@ -10,19 +10,20 @@ from flask import (
     render_template,
     flash,
 )
-from .models import Ticket
-from .forms import AddToCartForm, RemoveFromCartForm, ClearCartForm
+from .forms import AddToCartForm
 
 shopping_cart = Blueprint("shopping_cart", __name__)
-
 
 @shopping_cart.route("/cart", methods=["GET", "POST"])
 def cart():
     if not session["logged_in"]:
         flash("You need to login to view your cart", category="danger")
         return redirect(url_for("auth.login"))
-
-    return render_template("cart.html")
+    
+    if "shopping_cart" not in session:
+        return render_template("cart.html", shopping_cart={}, total="0.00")
+    else:
+        return render_template("cart.html", shopping_cart=session["shopping_cart"]["items"], total=session["shopping_cart"]["total_price"])
 
 
 @shopping_cart.route("/add_to_cart", methods=["GET", "POST"])
@@ -63,6 +64,7 @@ def add_to_cart():
             "venue": venue,
             "date": date,
         }
+        # shopping cart math logic
         session["shopping_cart"]["items"][event_id] = new_item
         session["shopping_cart"]["total_price"] += ticket_price * ticket_quantity
 
@@ -74,7 +76,7 @@ def add_to_cart():
 
 
 @shopping_cart.route(
-    "/remove_from_cart/<string:ticket_id>/remove", methods=["GET", "POST"]
+    "/remove_from_cart/<string:ticket_id>", methods=["GET", "POST"]
 )
 def remove_from_cart(ticket_id):
     if not session["logged_in"]:
@@ -104,12 +106,12 @@ def remove_from_cart(ticket_id):
 
     flash("Item removed from your cart", category="success")
     print(session["shopping_cart"])
-    return render_template("cart.html")
+    return redirect(url_for("event_guest.home"))
 
 
 @shopping_cart.route("/cart/clear", methods=["GET", "POST"])
 def clear_cart():
-    if not session.get("logged_in"):
+    if not session["logged_in"]:
         flash("You need to login to view your cart", category="danger")
         return redirect(url_for("auth.login"))
 
@@ -122,7 +124,7 @@ def clear_cart():
     else:
         flash("Your shopping cart is already empty", category="warning")
 
-    return render_template("cart.html")
+    return redirect(url_for("event_guest.home"))
 
 
 @shopping_cart.route("/cart/checkout", methods=["GET", "POST"])
