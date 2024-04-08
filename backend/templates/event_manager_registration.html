@@ -1,47 +1,62 @@
-
-{% extends 'index.html' %}
-
-{% block title %} Register {% endblock title%}
-
-{% block content %}
+{% extends 'index.html' %} {% block title %} <title>Register</title> {% endblock
+title%} {% block content %}
 
 <!-- Add Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
 <div class="container">
-    <h1>Enter your registration information:</h1>
-    <form method="POST" action="/host/register">
-        {{ form.csrf_token }}
-        <div class="mb-3">
-            <label for="primary_host" class="form-label"><i class="fa fa-user"></i> Primary Host</label>
-            {{ form.primary_host(class="form-control", id="primary_host") }}
-        </div>
-        <div class="mb-3">
-            <label for="host_email" class="form-label"><i class="fa fa-envelope"></i> Host Email</label>
-            {{ form.host_email(class="form-control", id="host_email") }}
-        </div>
-        <div class="mb-3">
-            <label for="organization_name" class="form-label"><i class="fa fa-building"></i> Organization Name</label>
-            {{ form.organization_name(class="form-control", id="organization_name") }}
-        </div>
-        <div class="mb-3">
-            <label for="organization_address" class="form-label"><i class="fa fa-map-marker"></i> Organization Address</label>
-            {{ form.organization_address(class="form-control", id="organization_address") }}
-        </div>
-        <div class="mb-3">
-            <label for="organization_email" class="form-label"><i class="fa fa-envelope"></i> Organization Email</label>
-            {{ form.organization_email(class="form-control", id="organization_email") }}
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label"><i class="fa fa-lock"></i> Password</label>
-            {{ form.password(class="form-control", id="password") }}
-        </div>
-        <div class="mb-3">
-            <label for="confirm_password" class="form-label"><i class="fa fa-lock"></i> Confirm Password</label>
-            {{ form.confirm_password(class="form-control", id="confirm_password") }}
-        </div>
-        {{ form.submit() }}
-    </form>
+  <h1>Enter your registration information:</h1>
+  <form method="POST" action="/host/register">
+    {{ form.csrf_token }}
+    <div class="mb-3">
+      <label for="primary_host" class="form-label"
+        ><i class="fa fa-user"></i> Primary Host</label
+      >
+      {{ form.primary_host(class="form-control", id="primary_host") }}
+    </div>
+    <div class="mb-3">
+      <label for="host_email" class="form-label"
+        ><i class="fa fa-envelope"></i> Host Email</label
+      >
+      {{ form.host_email(class="form-control", id="host_email") }}
+    </div>
+    <div class="mb-3">
+      <label for="organization_name" class="form-label"
+        ><i class="fa fa-building"></i> Organization Name</label
+      >
+      {{ form.organization_name(class="form-control", id="organization_name") }}
+    </div>
+    <div class="mb-3">
+      <label for="organization_address" class="form-label"
+        ><i class="fa fa-map-marker"></i> Organization Address</label
+      >
+      {{ form.organization_address(class="form-control",
+      id="organization_address") }}
+    </div>
+    <div class="mb-3">
+      <label for="organization_email" class="form-label"
+        ><i class="fa fa-envelope"></i> Organization Email</label
+      >
+      {{ form.organization_email(class="form-control", id="organization_email")
+      }}
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label"
+        ><i class="fa fa-lock"></i> Password</label
+      >
+      {{ form.password(class="form-control", id="password") }}
+    </div>
+    <div class="mb-3">
+      <label for="confirm_password" class="form-label"
+        ><i class="fa fa-lock"></i> Confirm Password</label
+      >
+      {{ form.confirm_password(class="form-control", id="confirm_password") }}
+    </div>
+    {{ form.submit() }}
+  </form>
 </div>
 
 {% endblock content %}

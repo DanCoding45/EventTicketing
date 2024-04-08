@@ -1,27 +1,40 @@
-{% extends 'index.html' %} 
-{% block title %} <title> View Cart</title> {% endblock title %}
-
-{% block content %}
+{% extends 'index.html' %} {% block title %} <title>View Cart</title> {%
+endblock title %} {% block content %}
 
 <div class="container">
-  {% for event_info in shopping_cart.values() %}
-  <div class="card" style="width: 18rem;">
+  <div class="manager_main">
+    {% for event_info in shopping_cart.values() %}
+    <div class="card" style="width: 18rem">
       <div class="card-body">
-          <h5 class="card-title"></h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Event: {{ event_info['event_name'] }}</h6>
-          <p class="card-text">Location: {{ event_info['city'] }}, {{ event_info['state'] }}</p>
-          <p class="card-text">Date: {{ event_info['date'] }}</p>
-          <p class="card-text">Price: ${{ event_info['price'] }}</p>
-          <p class="card-text">Quantity: {{ event_info['quantity'] }}</p>
-          <p class="card-text">Total Event Price: ${{ event_info['price'] * event_info['quantity'] }}</p>
-          <a href="remove_from_cart/{{ event_info['event_id'] }}" class="card-link">Remove</a>
-          <a href="cart/clear" class="card-link">Clear Cart</a>
+        <h3 class="card-title"></h3>
+        <h4 class="card-subtitle mb-2 text-body-secondary">
+          Event: {{ event_info['event_name'] }}
+        </h4>
+        <p class="card-text">
+          Location: {{ event_info['city'] }}, {{ event_info['state'] }}
+        </p>
+        <p class="card-text">Date: {{ event_info['date'] }}</p>
+        <p class="card-text">Price: ${{ event_info['price'] }}</p>
+        <p class="card-text">Quantity: {{ event_info['quantity'] }}</p>
+        <p class="card-text">
+          Total Event Price: ${{ event_info['price'] * event_info['quantity'] }}
+        </p>
+        <a
+          href="remove_from_cart/{{ event_info['event_id'] }}"
+          class="card-link"
+          >Remove</a
+        >
+        <a href="cart/clear" class="card-link">Clear Cart</a>
       </div>
+    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-
-  <p>Checkout Total: ${{ total }}</p>
-  <button><a href="/cart/checkout">Checkout</a></button>
+  <p class="check_p">
+    Checkout Total: ${{ total }} <br />
+    <button id="check_button">
+      <a href="/cart/checkout">Checkout</a>
+    </button>
+  </p>
 </div>
 
 {% endblock content%}
