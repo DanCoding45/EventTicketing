@@ -17,7 +17,7 @@
       type="text"
       id="cardNumber"
       placeholder="0000 0000 0000 0000"
-      maxlength="16"
+      maxlength="19"
       required
     />
     <label for="cardName">Cardholder Name:</label>
@@ -49,30 +49,72 @@
   </form>
 </div>
 <script>
-  document.getElementById("checkoutForm").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
+  // Function to format card number as per requirement
+  function formatCardNumber(value) {
+    value = value.replace(/[^\d]/g, ""); // Remove non-numeric characters
+    value = value.replace(/(\d{4})(?=\d)/g, "$1 "); // Add space after every 4 digits
+    return value;
+  }
 
-    // Get form values
-    var cardNumber = document.getElementById("cardNumber").value;
-    var cardName = document.getElementById("cardName").value;
-    var expiry = document.getElementById("expiry").value;
-    var cvv = document.getElementById("cvv").value;
+  // Function to format expiry date as per requirement
+  function formatExpiry(value) {
+    value = value.replace(/[^\d]/g, ""); // Remove non-numeric characters
+    value = value.replace(/(\d{2})(?=\d)/g, "$1/"); // Add "/" after first 2 digits
+    return value;
+  }
 
-    // Make AJAX request to Flask backend
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/cart/process_payment", true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 200) {
-          alert("Payment submitted successfully!");
-          window.location.href = "/";
-        } else {
-          alert("Failed to submit payment. Please try again.");
-        }
-      }
-    };
-    xhr.send(JSON.stringify({ cardNumber: cardNumber, cardName: cardName, expiry: expiry, cvv: cvv }));
+  // Function to allow only digits for CVV
+  function restrictCVV(value) {
+    return value.replace(/[^\d]/g, ""); // Remove non-numeric characters
+  }
+
+  document
+    .getElementById("cardNumber")
+    .addEventListener("input", function (event) {
+      this.value = formatCardNumber(this.value);
+    });
+
+  document.getElementById("expiry").addEventListener("input", function (event) {
+    this.value = formatExpiry(this.value);
   });
+
+  document.getElementById("cvv").addEventListener("input", function (event) {
+    this.value = restrictCVV(this.value);
+  });
+
+  document
+    .getElementById("checkoutForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get form values
+      var cardNumber = document.getElementById("cardNumber").value;
+      var cardName = document.getElementById("cardName").value;
+      var expiry = document.getElementById("expiry").value;
+      var cvv = document.getElementById("cvv").value;
+
+      // Make AJAX request to Flask backend
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/cart/process_payment", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            alert("Payment submitted successfully!");
+            window.location.href = "/";
+          } else {
+            alert("Failed to submit payment. Please try again.");
+          }
+        }
+      };
+      xhr.send(
+        JSON.stringify({
+          cardNumber: cardNumber,
+          cardName: cardName,
+          expiry: expiry,
+          cvv: cvv,
+        })
+      );
+    });
 </script>
 {% endblock content %}

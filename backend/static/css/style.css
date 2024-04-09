@@ -560,3 +560,24 @@ button:active {
   text-align: center;
   font-size: 30px;
 }
+.checkout_success{
+  text-align: center;
+  background-image: url("/static/images/congrats.jpg");
+    background-size: cover;
+    min-height: 100vh;
+    color: black;
+    font-size: 50px;
+    font-weight: 800;
+    font-family:fantasy;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkout_success p{
+  background-color: #47f1f1;
+  border: 10px solid rgb(2, 134, 179);
+  border-radius: 15px;
+  padding: 10px;
+}
