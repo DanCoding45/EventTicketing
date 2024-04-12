@@ -1,3 +1,4 @@
+from random import uniform
 import sqlite3
 
 from flask import (
@@ -21,9 +22,9 @@ def cart():
         return redirect(url_for("auth.login"))
     
     if "shopping_cart" not in session:
-        return render_template("cart.html", shopping_cart={}, total="0.00")
+        return render_template("shopping_cart/cart.html", shopping_cart={}, total="0.00")
     else:
-        return render_template("cart.html", shopping_cart=session["shopping_cart"]["items"], total=session["shopping_cart"]["total_price"])
+        return render_template("shopping_cart/cart.html", shopping_cart=session["shopping_cart"]["items"], total=session["shopping_cart"]["total_price"])
 
 
 @shopping_cart.route("/add_to_cart", methods=["GET", "POST"])
@@ -45,7 +46,7 @@ def add_to_cart():
         state = request.form.get("state")
         venue = request.form.get("venue")
         date = request.form.get("date")
-        ticket_price = float(request.form.get("price"))
+        ticket_price = round(uniform(100.00, 800.00), 2)
         ticket_quantity = int(form.quantity.data)
 
         # Check if the ticket is already in the shopping cart
@@ -83,7 +84,6 @@ def remove_from_cart(ticket_id):
         flash("You need to login to remove items from your cart", category="danger")
         return redirect(url_for("auth.login"))
 
-    print(session["shopping_cart"]["items"].keys())
 
     if "shopping_cart" not in session:
         flash("Your shopping cart is empty", category="danger")
@@ -105,7 +105,6 @@ def remove_from_cart(ticket_id):
     del session["shopping_cart"]["items"][ticket_id]
 
     flash("Item removed from your cart", category="success")
-    print(session["shopping_cart"])
     return redirect(url_for("event_guest.home"))
 
 
@@ -133,7 +132,7 @@ def render_checkout():
         if not session["logged_in"]:
             flash("You need to login to view your cart", category="danger")
             return redirect(url_for("auth.login"))
-        return render_template("checkout.html")
+        return render_template("shopping_cart/checkout.html")
 
 
 @shopping_cart.route("/cart/process_payment", methods=["POST"])
@@ -155,8 +154,11 @@ def process_payment():
     event_id = session["event_id"]
     guest_name = get_name(user_id)
     insert_into_db(event_id=event_id, user_id=user_id, name=guest_name)
-    return jsonify({"message": "Payment processed successfully"}), 200
+    return redirect(url_for("shopping_cart.payment_sucess"))
 
+@shopping_cart.route("/payment_sucess", methods=["GET"])
+def payment_sucess():
+    return render_template("shopping_cart/checkout_successful.html")
 
 def get_name(guest_id):
     conn = sqlite3.connect("database.db")
