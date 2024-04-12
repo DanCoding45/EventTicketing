@@ -16,16 +16,16 @@ def home(category):
     else:
         events=event_manager_services.fetch_events()
     
-    return render_template('event_manager_dashboard.html', events=events)
+    return render_template('dashboards/event_manager_dashboard.html', events=events)
 
 @event_manager.route('/manager/guest_list/<string:event_id>')
 def guest_list(event_id):
     event_guests = event_manager_services.fetch_guest_list(event_id)
     if event_guests:  # Check if event_guests is not empty
         print(event_guests)
-        return render_template('event_guest_list.html', event_id=event_id, event_guests=event_guests)
+        return render_template('notifications/event_guest_list.html', event_id=event_id, event_guests=event_guests)
     else:
-        return render_template('event_guest_list.html', event_id=event_id)
+        return render_template('notifications/event_guest_list.html', event_id=event_id)
 
 @event_manager.route('/manager/send_message', methods=["GET", "POST"])
 def send_message():
