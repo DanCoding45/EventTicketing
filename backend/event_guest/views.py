@@ -38,7 +38,7 @@ def home(category):
     )
         events.append(event)
         
-    return render_template("dashboard.html", events=events, form=add_to_cart_form)
+    return render_template("dashboards/dashboard.html", events=events, form=add_to_cart_form)
 
 
 @event_guest.route('/notifications')
@@ -46,7 +46,7 @@ def check_notifications():
     print(session['user_id'])
     # function to check for any incoming messages
     unread_messages = event_guest_notification_services.get_unread_notifications(session["user_id"])
-    return render_template("user_notifications.html", unread_messages=unread_messages)
+    return render_template("notifications/user_notifications.html", unread_messages=unread_messages)
 
 
 @event_guest.route('/update_message_status', methods=["POST"])
