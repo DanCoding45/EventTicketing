@@ -1,0 +1,88 @@
+{% extends 'index.html' %} {% block content %}
+
+<div class="manager_dash">
+  <div class="sidebar" id="sidebar">
+    <div class="top">
+      <div class="logo">
+        <i class="bx bxl-codepen"></i>
+        <span>Event Ticketing</span>
+      </div>
+      <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <div class="user">
+      <img
+        src="{{ url_for('static', filename='images/venue1.jpg') }}"
+        alt="image of a ticket"
+        class="user-img"
+      />
+      <div>
+        <p class="bold">E & T</p>
+        <p>User</p>
+      </div>
+    </div>
+
+    <ul>
+      <li>
+        <a href="/manager/home/sports">
+          <i class="bx bx-football"></i>
+          <span class="nav-item">Sports</span>
+        </a>
+        <span class="tooltip">Sports</span>
+      </li>
+
+      <li>
+        <a href="/manager/home/music">
+          <i class="bx bxs-music"></i>
+          <span class="nav-item">Concerts</span>
+        </a>
+        <span class="tooltip">Concerts</span>
+      </li>
+      <li>
+        <a href="/manager/home/fashion">
+          <i class="bx bxs-t-shirt"></i>
+          <span class="nav-item">Fashion shows</span>
+        </a>
+        <span class="tooltip">Fashion Shows</span>
+      </li>
+    </ul>
+  </div>
+  <div class="manager_main">
+    {% for event in events %}
+    <div class="card m-auto" style="width: 36rem">
+      <div class="card-body">
+        <h5 class="card-title">{{ event.name }}</h5>
+        <p class="card-text">{{ event.city }}, {{event.state }}</p>
+        <p class="card-text">{{ event.venue }}</p>
+        <p class="card-text">{{ event.date }}</p>
+        <a
+          href="{{ url_for('event_manager.guest_list', event_id=event.id) }}"
+          class="btn text-bg-dark"
+          >See Guest List</a
+        >
+      </div>
+    </div>
+    <br /><br />
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  let btn = document.querySelector("#btn");
+  let sidebar = document.querySelector(".sidebar");
+
+  btn.onclick = function () {
+    sidebar.classList.toggle("active");
+  };
+
+  window.addEventListener("scroll", function () {
+    var sidebar = document.getElementById("sidebar");
+    var topOffset = 50; // Adjust this value as needed
+
+    if (window.scrollY > topOffset) {
+      sidebar.classList.add("fixed");
+    } else {
+      sidebar.classList.remove("fixed");
+    }
+  });
+</script>
+{% endblock content %}

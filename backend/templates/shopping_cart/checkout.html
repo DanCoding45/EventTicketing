@@ -100,13 +100,12 @@
       xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status === 200) {
-            alert("Payment submitted successfully!");
-            window.location.href = "/";
+            window.location.href = "/payment_sucess";
           } else {
             alert("Failed to submit payment. Please try again.");
           }
         }
-      };
+      }; 
       xhr.send(
         JSON.stringify({
           cardNumber: cardNumber,
