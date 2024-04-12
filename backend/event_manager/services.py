@@ -1,6 +1,7 @@
 
 import sqlite3
 from .models import EventGuest
+from event_guest.models import Event
 
 class EventManagerServices:
     
@@ -12,12 +13,29 @@ class EventManagerServices:
             query = "SELECT * FROM events WHERE category = ?"
             cursor.execute(query, (category, ))
         else:
-            query = "SELECT * FROM events LIMIT 10"
+            query = "SELECT * FROM events LIMIT 5"
             cursor.execute(query)
+        events = []
 
-        events = cursor.fetchall()
+        fetched_events = cursor.fetchall()
 
+        for fetched_event in fetched_events:
+            event = Event(
+                id=fetched_event[0],
+                name=fetched_event[1],
+                category=fetched_event[2],
+                date=fetched_event[3],
+                time=fetched_event[4],
+                city=fetched_event[5],
+                state=fetched_event[6],
+                country=fetched_event[7],
+                venue_name=fetched_event[8],
+                image_url=fetched_event[9],
+            )
+            events.append(event)
+        
         conn.close()
+        
         if events:
             return events
         else:
