@@ -34,7 +34,7 @@ def register():
             return redirect(url_for('auth.login'))
         else:
             flash("Invalid Form Data Provided. Please try again!")
-    return render_template("register.html", form=form)
+    return render_template("auth/user/register.html", form=form)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -64,7 +64,7 @@ def login():
         else:
             flash("Invalid Form Data. Please try again!")
     
-    return render_template("login.html", form=form)
+    return render_template("auth/user/login.html", form=form)
 
 @auth.route('/logout')
 def logout():
