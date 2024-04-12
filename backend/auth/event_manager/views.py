@@ -31,7 +31,7 @@ def register():
             conn.close()
             return redirect(url_for("event_manager_auth.login"))
             
-    return render_template("event_manager_registration.html", form=form)
+    return render_template("auth/event_manager/event_manager_registration.html", form=form)
 
 
 @event_manager_auth.route('/host/login', methods=["GET", "POST"])
@@ -63,7 +63,7 @@ def login():
         else:
             flash("Invalid form data provided!, please try again!")
     
-    return render_template("event_manager_login.html", form=form)
+    return render_template("auth/event_manager/event_manager_login.html", form=form)
         
         
 @event_manager_auth.route('/host/logout')
