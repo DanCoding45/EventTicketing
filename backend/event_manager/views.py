@@ -8,7 +8,7 @@ event_manager_services = EventManagerServices()
 
 
 @event_manager.route('/manager/home/<string:category>')
-@event_manager.route('/manager/home', defaults={"category": None})
+@event_manager.route('/manager/home', defaults={"category": 'sports'})
 def home(category):
     events = []
     if category:
