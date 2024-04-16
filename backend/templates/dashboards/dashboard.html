@@ -43,6 +43,41 @@ endblock title%} {% block content %}
         <span class="tooltip">Fashion Shows</span>
       </li>
       <li>
+        <a href="#">
+          <i class="bx bxs-movie"></i>
+          <span class="nav-item">Movies</span>
+        </a>
+        <span class="tooltip">Movies</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bxs-happy-beaming"></i>
+          <span class="nav-item">Festivals</span>
+        </a>
+        <span class="tooltip">Festivals</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bxs-briefcase-alt-2"></i>
+          <span class="nav-item">Conferences</span>
+        </a>
+        <span class="tooltip">Conferences</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-male-female"></i>
+          <span class="nav-item">Weddings</span>
+        </a>
+        <span class="tooltip">Weddings</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bxs-wallet-alt"></i>
+          <span class="nav-item">Business events</span>
+        </a>
+        <span class="tooltip">Business events</span>
+      </li>
+      <li>
         <a href="/cart">
           <i class="bx bxs-cart-alt"></i>
           <span class="nav-item">Shopping Cart</span>
@@ -127,30 +162,38 @@ endblock title%} {% block content %}
                 {{ event.time }}<br />
               </p>
               <form
-              action="{{ url_for('shopping_cart.add_to_cart') }}"
-              method="post"
-            >
-              {{ form.hidden_tag() }} {# Render any hidden fields included in the
-              form #}
-  
-              <!-- Hidden fields for additional data -->
-              <input type="hidden" name="event_id" value="{{ event.id }}" />
-              <input type="hidden" name="event_name" value="{{ event.name }}" />
-              <input type="hidden" name="city" value="{{ event.city }}" />
-              <input type="hidden" name="state" value="{{ event.state }}" />
-              <input type="hidden" name="venue" value="{{ event.venue_name }}" />
-              <input type="hidden" name="date" value="{{ event.date }}" />
-              <input type="hidden" name="price" value="100" />
-  
-              <div class="form-group">
-                {# Render the quantity field #} {{ form.quantity.label() }} {{
-                form.quantity(class="form-control") }} {% for error in
-                form.quantity.errors %}
-                <span class="text-danger">{{ error }}</span>
-                {% endfor %}
-              </div>
-              {{ form.submit(class="btn btn-primary") }}
-            </form>
+                action="{{ url_for('shopping_cart.add_to_cart') }}"
+                method="post"
+              >
+                {{ form.hidden_tag() }} {# Render any hidden fields included in
+                the form #}
+
+                <!-- Hidden fields for additional data -->
+                <input type="hidden" name="event_id" value="{{ event.id }}" />
+                <input
+                  type="hidden"
+                  name="event_name"
+                  value="{{ event.name }}"
+                />
+                <input type="hidden" name="city" value="{{ event.city }}" />
+                <input type="hidden" name="state" value="{{ event.state }}" />
+                <input
+                  type="hidden"
+                  name="venue"
+                  value="{{ event.venue_name }}"
+                />
+                <input type="hidden" name="date" value="{{ event.date }}" />
+                <input type="hidden" name="price" value="100" />
+
+                <div class="form-group">
+                  {# Render the quantity field #} {{ form.quantity.label() }} {{
+                  form.quantity(class="form-control") }} {% for error in
+                  form.quantity.errors %}
+                  <span class="text-danger">{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {{ form.submit(class="btn btn-primary") }}
+              </form>
             </div>
             {% endfor %}
           </div>
@@ -170,7 +213,7 @@ endblock title%} {% block content %}
             {{ event.venue_name }}<br />{{ event.date }}<br />Time: {{
             event.time }}<br />
           </p>
-                   <form
+          <form
             action="{{ url_for('shopping_cart.add_to_cart') }}"
             method="post"
           >
