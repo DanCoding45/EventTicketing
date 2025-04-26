@@ -1,2 +1,2 @@
 # Team5
-EventTicking
+## EventTicketing App
